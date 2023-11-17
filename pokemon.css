@@ -1,0 +1,125 @@
+*{
+    font-family:kelly slab;
+}
+body{
+    background-image: url(background\ copy.png) !important;
+    background-size: cover;
+    background: white;
+}
+.logo{
+    width: 11em;
+}
+.searchbar, .filter{
+    width: 19em;
+    height: 2em;
+    border: 2px solid;
+    border-image: linear-gradient(to right, #306cb4, #ffcb05);
+    border-image-slice: 1;
+    outline: none;
+}
+.searchbar::placeholder , .filter , .compare , .refresh{
+    font-size: 1.3em;
+}
+.searchbar::placeholder, .filter {
+    font-size: 0.98em;
+}
+.filterImg , .compareImg , .refreshImg, .searchImg{
+    width: 1.2em;
+    height: 1.2em;
+}
+.compare a{
+    color: inherit;
+     text-decoration: none;
+}
+.compareBtn{
+    background:  #306cb4;
+    height: 2em;
+    border: none;
+    border-radius: 2px;
+    width: 6em;
+}
+.compareBtn:hover{
+    background:  #ffcb05;
+    
+}
+.searchDiv{
+    position: relative;
+    cursor: pointer;
+}
+.searchImg{
+position: absolute;
+top: 6px;
+right: 44px;
+}
+
+.pokemonCard{
+    border: 2px solid gray;
+    border-radius: 1em;
+    width: 20%;
+}
+.pokemonCard:hover:nth-child(odd){
+    border: 2px solid #306cb4;
+    box-shadow: 0 0 10px 2px #306cb4;
+}
+.pokemonCard:hover:nth-child(even){
+    border: 2px solid #ffcb05;
+    box-shadow: 0 0 10px 2px #ffcb05;
+}
+.pokemonName{
+    font-size: 2em;
+}
+.heightWeigthCol{
+    font-weight: bolder;
+}
+.eachRow{
+   justify-content: space-evenly;
+   align-items: center;
+}
+.eachType{
+    border: 2px solid;
+    border-radius: 1em;
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+.blue{
+   
+    background: linear-gradient(to right, #306cb4, #87CEEB);
+}
+.yellow{
+    background: linear-gradient(to right, #ffcb05, #ffffcc);
+}
+.red{
+    background: linear-gradient(to right, red, orange);
+}
+.green{
+    background: linear-gradient(to right, #006400, #3eb39e);
+}
+.grey{
+    background: linear-gradient(to right, gray,white);
+}
+.blue:hover{
+    background: linear-gradient(to left, #306cb4, #87CEEB);
+}
+.yellow:hover{
+    background: linear-gradient(to left, #ffcb05, #ffffcc);
+}
+.red:hover{
+    background: linear-gradient(to left, red, orange);
+}
+.green:hover{
+    background: linear-gradient(to left, #006400, #3eb39e);
+}
+.grey:hover{
+    background: linear-gradient(to left, gray,white);
+}
+.more, .collapseBtn{
+    background: #ffcb05;
+    border: 2px solid #306cb4;
+    color: #306cb4;
+    width: 17em;
+    border-radius: 6px;
+    
+}
