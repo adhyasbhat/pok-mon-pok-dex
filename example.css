@@ -1,0 +1,38 @@
+/* Hide the default checkbox */
+.visually-hidden {
+    position: absolute;
+    clip: rect(0 0 0 0);
+    clip-path: inset(50%);
+    overflow: hidden;
+    height: 1px;
+    width: 1px;
+    margin: -1px;
+    padding: 0;
+    border: 0;
+
+  }
+  
+  /* Style the label to resemble the checkbox */
+  .checkbox-label {
+    font-size: 24px; /* Adjust the size as needed */
+    display: inline-block;
+    width: 24px; /* Ensure width and height match */
+    height: 24px;
+    border: 1px solid #000; /* Border to represent the checkbox */
+    text-align: center;
+    line-height: 24px; /* Center the text vertically */
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s; /* Smooth transition */
+  
+    /* Default color */
+    color: black;
+  }
+  
+  /* Change color on checked */
+  .custom-checkbox:checked + .checkbox-label {
+    color: white;
+    padding: 3px;
+    background-color: #007bff; /* Change to your desired color */
+    border-color: #007bff;
+  }
+  
