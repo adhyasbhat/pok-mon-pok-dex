@@ -1,9 +1,12 @@
+
 const searchbar = document.querySelector(".searchbar");
 const pokemonGrid = document.querySelector("#pokemonGrid");
 const noResult = document.querySelector(".noResult");
 const more = document.querySelector(".more");
-let selectedFilter = mergedData
+let selectedFilter, ability = mergedData;
 let filterValue = document.getElementById("filterValue");
+let calledBy = "";
+let selectedAbility = ""
 let min = 0;
 let max = 16;
 let add = 0;
@@ -11,14 +14,13 @@ let sub = 0;
 let count = 0;
 let dataFilter = mergedData;
 const collapseBtn = document.querySelector(".collapseBtn");
-
-createPokemonGrid(min, max,dataFilter);
-
+let shuffelPokemon = [];
+createPokemonGrid(min, max, dataFilter);
 let num = {};
 
 filterValue.addEventListener("change", function () {
   switch (filterValue.value) {
-    case "default":
+    case "lowest":
       dataFilter = mergedData;
       break;
     case "atoz":
@@ -39,89 +41,126 @@ filterValue.addEventListener("change", function () {
   }
   add = 0;
   sub = 0;
-  // count = 0;
   pokemonGrid.innerHTML = "";
   collapseBtn.style.display = "none";
-  displaySearchedPokemon(searchbar.value,filterValue.value,dataFilter)
+  displaySearchedPokemon(searchbar.value, filterValue.value, dataFilter,selectedAbility);
 });
 
-function createPokemonGrid(min, max,selectedFilter) {
-  if(max<selectedFilter.length){
-    displayPokemonGrid(min,max,selectedFilter)
-    more.style.display = "block"
-  }
-  else if (selectedFilter.length == 0) {
+function createPokemonGrid(min, max, selectedFilter) {
+
+  calledBy  = createPokemonGrid.caller
+  if (max < selectedFilter.length) {
+    displayPokemonGrid(min, max, selectedFilter);
+    more.style.display = "block";
+  } else if (selectedFilter.length == 0) {
     noResult.style.display = "block";
-     more.style.display = "none";
-  } 
-  else if(max >= selectedFilter.length){
-    displayPokemonGrid(min,max,selectedFilter)
-     more.style.display = "none";
-    
-  }
-  else {
-    displayPokemonGrid(min,max,selectedFilter)
+    more.style.display = "none";
+  } else if (max >= selectedFilter.length) {
+    displayPokemonGrid(min, max, selectedFilter);
+    more.style.display = "none";
+  } else {
+    displayPokemonGrid(min, max, selectedFilter);
   }
 }
 searchbar.addEventListener("input", function () {
-  displaySearchedPokemon(searchbar.value,filterValue.value,dataFilter);
-  add = 0
-  sub = 0
-}); 
+  displaySearchedPokemon(searchbar.value, filterValue.value, dataFilter,selectedAbility);
+  add = 0;
+  sub = 0;
+});
+console.log(selectedAbility)
+function displaySearchedPokemon(searchBarValue, filterValue, dataFilter,abilityFilterValue) {
 
-function displaySearchedPokemon(searchBarValue,filterValue,dataFilter) {
-  min = 0
-  max = 16
-  collapseBtn.style.display = "none"
+  min = 0;
+  max = 16;
+  collapseBtn.style.display = "none";
   pokemonGrid.innerHTML = "";
-  if((searchBarValue == "" && filterValue == 'default'))
-  {
-    selectedFilter =  mergedData
-     createPokemonGrid(min, max,selectedFilter);
-  }
-  else if(searchBarValue == "" && filterValue != "default"){
-    selectedFilter = dataFilter
-    createPokemonGrid(min,max,selectedFilter)
-  }
-  else if (searchBarValue !== "" || filterValue !== "default") {
-    if (/^[a-zA-Z]+$/.test(searchBarValue)) {
-        selectedFilter = dataFilter.filter(item => item.name.startsWith(searchBarValue.charAt(0).toUpperCase() + searchBarValue.slice(1).toLowerCase()));
-    } else if (/^\d+$/.test(searchBarValue)) {
-        selectedFilter = dataFilter.filter(item => item.number.includes(searchBarValue));
-    }
-   
+if (searchBarValue == "" && filterValue == "default" && abilityFilterValue == "") {
+    selectedFilter = mergedData;
     createPokemonGrid(min, max, selectedFilter);
-    if(max >= selectedFilter.length){
-      more.style.display = "none"
+
+  } else if (searchBarValue == "" && filterValue == "default" && abilityFilterValue != "") {
+    selectedFilter = sortByAbilities(abilityFilterValue,dataFilter)
+    createPokemonGrid(min, max, selectedFilter);
+    handleMore(max,selectedFilter)
+
+  } 
+  else if (searchBarValue == "" && filterValue != "default" && abilityFilterValue ==""){
+    selectedFilter = dataFilter
+    createPokemonGrid(min, max, selectedFilter);
+  }
+  else if(searchBarValue == "" && filterValue != "default" && abilityFilterValue != ""){
+    selectedFilter = sortByAbilities(abilityFilterValue,dataFilter)
+    createPokemonGrid(min, max, selectedFilter);
+    handleMore(max,selectedFilter)
+  }
+  else if(searchBarValue != "" && filterValue == "default" && abilityFilterValue == ""){
+    selectedFilter = filterBySearch(searchBarValue,dataFilter)
+    createPokemonGrid(min, max, selectedFilter);
+    handleMore(max,selectedFilter)
+  }
+  else if(searchBarValue != "" && filterValue == "default" && abilityFilterValue != ""){
+    firstFilter = sortByAbilities(abilityFilterValue,dataFilter)
+    selectedFilter = filterBySearch(searchBarValue,firstFilter)
+    createPokemonGrid(min, max, selectedFilter);
+    handleMore(max,selectedFilter)
+  }
+  else if (searchBarValue != "" && filterValue != "default" && abilityFilterValue == "") {
+    selectedFilter = filterBySearch(searchBarValue,dataFilter)
+      createPokemonGrid(min, max, selectedFilter);
+      handleMore(max,selectedFilter)
     }
-    else{
-      more.style.display = "block"
-    }
-    // lengthOfData(selectedFilter);
+  else if(searchBarValue != "" && filterValue != "default" && abilityFilterValue !=""){
+    firstFilter = sortByAbilities(abilityFilterValue,dataFilter)
+    selectedFilter = filterBySearch(searchBarValue,firstFilter)
+    createPokemonGrid(min, max, selectedFilter);
+    handleMore(max,selectedFilter)
+  }
 }
 
+function filterBySearch(searchBarValue,dataFilter){
+  if (/^[a-zA-Z]+$/.test(searchBarValue)) {
+    selectedFilterForSearch = dataFilter.filter((item) =>
+      item.name.startsWith(
+        searchBarValue.charAt(0).toUpperCase() +
+          searchBarValue.slice(1).toLowerCase()
+      )
+    );
+  } else if (/^\d+$/.test(searchBarValue)) {
+    selectedFilterForSearch = dataFilter.filter((item) =>
+      item.number.includes(searchBarValue)
+    );
+  }
+  return selectedFilterForSearch
 }
-function displayPokemonGrid(min,max,selectedFilter){
+
+function handleMore(max,selectedFilter){
+  if (max >= selectedFilter.length) {
+    more.style.display = "none";
+  } else {
+    more.style.display = "block";
+  }
+}
+
+function displayPokemonGrid(min, max, selectedFilter) {
   noResult.style.display = "none";
   const row = document.createElement("div");
   row.className = "eachRow row";
-  selectedFilter.slice(min, max).forEach((item) => {
-
+  selectedFilter.slice(min, max).forEach((item,index) => {
     const col = document.createElement("div");
     col.className = "pokemonCard m-1 my-2";
 
-    const pokNameNum = document.createElement("div")
-    pokNameNum.classList = "pokNameNum col-12 d-flex" 
+    const pokNameNum = document.createElement("div");
+    pokNameNum.classList = "pokNameNum col-12 d-flex";
 
     const pokemonNames = document.createElement("div");
     pokemonNames.className = "pokemonName col-10";
     pokemonNames.innerText = item.name;
 
-    const pokemonNumber = document.createElement("div")
-    pokemonNumber.classList = "pokemonNum col-2"
-    pokemonNumber.innerHTML ="#"+ item.number
+    const pokemonNumber = document.createElement("div");
+    pokemonNumber.classList = "pokemonNum col-2";
+    pokemonNumber.innerHTML = "#" + item.number;
 
-    pokNameNum.append(pokemonNames,pokemonNumber)
+    pokNameNum.append(pokemonNames, pokemonNumber);
 
     const heightWeigth = document.createElement("div");
     heightWeigth.className = "heightWeigthCol col-12 d-flex";
@@ -139,8 +178,7 @@ function displayPokemonGrid(min,max,selectedFilter){
     typeImage.className = "typeImageCol col-12 d-flex";
 
     const pokemonType = document.createElement("div");
-    pokemonType.className =
-      "typeOfPokemon col-6 d-flex justify-content-start";
+    pokemonType.className = "typeOfPokemon col-6 d-flex justify-content-start";
     const pokeType = document.createElement("div");
     pokeType.className = "pokeType";
     item.type.forEach((types) => {
@@ -157,105 +195,89 @@ function displayPokemonGrid(min,max,selectedFilter){
     typeImage.append(pokemonType, pokemonImage);
 
     col.append(pokNameNum, heightWeigth, typeImage);
+
+    col.addEventListener("click", function () {
+      const modalTitle = document.querySelector("#pokemonModal .modal-title");
+      modalTitle.classList.add('bolder')
+      modalTitle.innerText = item.name;
+
+      const modalBody = document.querySelector("#pokemonModal .modal-body");
+      modalBody.innerHTML = `
+      <p class = 'd-flex justify-content-center'> <img src="${
+        item.ThumbnailImage
+      }" alt="${item.name}" class="modal-image"></p>
+        <p> <span class='bold'>Number:</span> #${item.number}</p>
+        <div class = 'bold '>Height and Weigth: <div class = 'pieChart' id = "heightAndWeigth${index}" > 
+        </div></div>
+        <p><span class = 'bold'>Ability:</span> ${item.abilities.join(", ")}</p>
+        <p><span class = 'bold'>Types:</span> ${item.type.join(", ")}</p>
+        <p> <span class ='bold'>Weekness:</span> ${item.weakness.join(", ")}</p>
+        
+      `;
+      plotChart(item.height,item.weight,index)
+      const myModal = new bootstrap.Modal(
+        document.getElementById("pokemonModal")
+      );
+      myModal.show();
+    });
+
+    
+    
+    
     row.append(col);
   });
   pokemonGrid.append(row);
 }
-function addMore(){
-  add++
+function addMore() {
+  add++;
+  if (min < 10 && max < 14) {
+    min = min + 16;
+    max = max + 16;
+  } else {
+    min = min + 17;
+    max = max + 17;
+  }
+  if (calledBy === SurpriseMe)
+  {
+    console.log("addMore SurpriseMe")
+    SurpriseMe('addMore')
 
-  if(min <10 && max <14){
-    min = min +16
-    max = max + 16
   }
   else{
-    min = min + 17
-    max = max + 17
+    createPokemonGrid(min, max, selectedFilter);
   }
-  
-  createPokemonGrid(min,max,selectedFilter)
-  collapseBtn.style.display = "block"
 
+  collapseBtn.style.display = "block";
 }
-function collapse(){
-  more.style.display = "block"
-  console.log(add)
-  console.log(sub)
-  sub++
-  if(min <10 && max <14){
-    min = min -16
-    max = max - 16
+function collapse() {
+  more.style.display = "block";
+  sub++;
+  if (min < 10 && max < 14) {
+    min = min - 16;
+    max = max - 16;
+  } else {
+    min = min - 17;
+    max = max - 17;
   }
-  else{
-    min = min - 17
-    max = max - 17
+  if (sub <= add) {
+    pokemonGrid.removeChild(pokemonGrid.lastChild);
+    if (sub == add) {
+      collapseBtn.style.display = "none";
+    }
   }
- if(sub<=add){
-  pokemonGrid.removeChild(pokemonGrid.lastChild);
-  if(sub == add){
-    collapseBtn.style.display = "none"
-  }
- }
 }
-
-
-// function lengthOfData(data){
-//   if(data.length<16){
-//     more.style.display="none"
-//     collapseBtn.style.display="none"
-//   }
-//   else{
-//     more.style.display="block"
-//   }
-// }
-// function addMore() {
-//   console.log(selectedFilter.length)
-//   console.log('max in add :',max)
-//   if(max>= selectedFilter.length){
-//     more.style.display = "none";
-//   }
-//   else{
-//     add++;
-//     console.log("min:",min,"max",max)
-//     min = max + 1;
-//     max = max + 17;
-//     console.log(selectedFilter)
-//     createPokemonGrid(min, max,selectedFilter);
-//     collapseBtn.style.display = "block";
-//   }
- 
-// }
-// function collapse() {
-//   more.style.display = "block"
-//   sub++;
-//   if (sub == add + 1) {
-//     collapseBtn.style.display = "none";
-//     add = 0;
-//     sub = 0;
-   
-  
-//   } else {
-//     count++;
-//     pokemonGrid.removeChild(pokemonGrid.lastChild);
-//     min = min - 16
-//     max = max - 16
-//     if (count == add) {
-//       collapseBtn.style.display = "none";
-//       more.style.display = "block"
-//     }
-//   }
-// }
 
 function sortByHighestNumber() {
   return [...mergedData].sort((a, b) => b.number - a.number);
 }
 
 function sortByHeight() {
-  return [...mergedData].sort((a, b) => a.height - b.height);
+  return [...mergedData].sort((a, b) => b.height - a.height);
 }
 
 function sortByWeigth() {
-  return [...mergedData].sort((a, b) => a.weight - b.weight);
+  number = [...mergedData].sort((a, b) => b.number - a.number)
+  return [...number].sort((a, b) => b.weight - a.weight);
 }
 
 function sortByA_Z() {
@@ -281,5 +303,41 @@ function styleForType(div, val) {
     div.classList.add("yellow");
   } else if (grey.includes(val)) {
     div.classList.add("grey");
+  }
+}
+
+
+
+
+function SurpriseMe(val) {
+  if (val === 'addMore') {
+    console.log("addMoreeee surprise create ")
+    const nextSet = shuffelPokemon.slice(0, 16);
+    shuffel(nextSet);
+    shuffelPokemon = shuffelPokemon.slice(16);
+    createPokemonGrid(min, max, shuffelPokemon);
+  } else {
+    shuffelPokemon = [...mergedData];
+    shuffel(shuffelPokemon);
+    add = 0;
+    sub = 0;
+
+    searchbar.value = "";
+    filterValue.value = "default";
+    min = 0
+    max =16
+    collapseBtn.style.display = "none";
+  pokemonGrid.innerHTML = "";
+    createPokemonGrid(min, max, shuffelPokemon);
+  }
+}
+
+function shuffel(pokemonShuffel) {
+  for (let i = pokemonShuffel.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [pokemonShuffel[i], pokemonShuffel[j]] = [
+      pokemonShuffel[j],
+      pokemonShuffel[i],
+    ];
   }
 }

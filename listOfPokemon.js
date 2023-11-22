@@ -350,7 +350,7 @@ const pokemonSet = [
     collectibles_slug: "pidgeotto",
     featured: "true",
     slug: "pidgeotto",
-    name: "Pidgeotto",
+    name: "pidgeotto",
     ThumbnailAltText: "Pidgeotto",
     ThumbnailImage:
       "https://assets.pokemon.com/assets/cms2/img/pokedex/detail/017.png",
