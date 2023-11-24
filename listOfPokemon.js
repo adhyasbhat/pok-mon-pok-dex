@@ -20141,9 +20141,6 @@ const pokemonSet = [
     type: ["grass", "psychic"],
   },
 ];
-// a = pokemonSet.filter(item => item.name.startsWith('Z'))
-// console.log('z value',a)
-// b = pokemonSet.filter(item => console.log(typeof(item.number)))
 function mergePokemonData(pokemonSet) {
     const mergedPokemon = {};
   

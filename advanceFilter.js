@@ -1,155 +1,254 @@
-// const abilityFilter = document.querySelector("#abilityFilter")
-const advanceTypeAndWeakness = document.querySelector('.advanceTypeAndWeekness')
-// sortByAbilities()
-// function sortByAbilities(valueSelected) {
-//   ability = mergedData.filter((item) => item.abilities.includes(valueSelected));
-//   add = 0;
-//   sub = 0;
-//   searchbar.value = "";
-//   filterValue.value = "default";
-//   console.log(ability)
-//   displaySearchedPokemon(null, null,ability);
-// }
-// function listOfAbilities(){
-//   console.log("called")
-//   uniqueAbility = new Set();
-//   mergedData.forEach((item) => item.abilities.forEach((items)=>{uniqueAbility.add(items)}))
-//   abilityListArray = Array.from(uniqueAbility)
-//   abilityListArray.forEach((item)=>{
-//     const abilityList = document.createElement('option')
-//     abilityList.className = 'pokemonName'
-//     abilityList.textContent = item
-//     abilityFilter.add(abilityList)
-//   })
-// }
-// function abilitySelected(){
-//   sortByAbilities(abilityFilter.value)
-// }
-
-
-
-
-
-const abilityOptions = document.getElementById('abilityOptions');
-const customDropdown = document.querySelector('.custom-dropdown');
-
-function sortByAbilities(valueSelected,dataFilter) {
-  console.log(valueSelected)
+const advanceTypeAndWeakness = document.querySelector(
+  ".advanceTypeAndWeekness"
+);
+const abilityOptions = document.getElementById("abilityOptions");
+const customDropdown = document.querySelector(".custom-dropdown");
+const labelTitle = document.querySelector(".labelTitle");
+const heightFilter = document.querySelectorAll(".heightFilter");
+const weightFilter = document.querySelectorAll(".weightFilter");
+let typeWeekness = {};
+function sortByAbilities(valueSelected, dataFilter) {
+  console.log(valueSelected);
   ability = dataFilter.filter((item) => item.abilities.includes(valueSelected));
   add = 0;
   sub = 0;
   console.log(ability);
-  // displaySearchedPokemon(null, null, ability);
-  return ability
+  return ability;
 }
 
 function listOfAbilities() {
-  console.log("called");
   uniqueAbility = new Set();
-  mergedData.forEach((item) => item.abilities.forEach((items) => uniqueAbility.add(items)));
+  mergedData.forEach((item) =>
+    item.abilities.forEach((items) => uniqueAbility.add(items))
+  );
   abilityListArray = Array.from(uniqueAbility);
-  abilityOptions.innerHTML = '';
+  abilityOptions.innerHTML = "";
   abilityListArray.forEach((item) => {
-    const abilityListItem = document.createElement('li');
+    const abilityListItem = document.createElement("li");
     abilityListItem.textContent = item;
-    abilityListItem.className = 'option';
+    abilityListItem.className = "option";
     abilityOptions.appendChild(abilityListItem);
   });
 
-  abilityOptions.addEventListener('click', function (e) {
-     selectedAbility = e.target.textContent;
-    customDropdown.querySelector('.selected-option').textContent = selectedAbility;
-    console.log(selectedAbility)
-    // sortByAbilities(selectedAbility);
-    displaySearchedPokemon(searchbar.value, filterValue.value, dataFilter,selectedAbility);
-    abilityOptions.style.display = 'none';
+  abilityOptions.addEventListener("click", function (e) {
+    selectedAbility = e.target.textContent;
+    customDropdown.querySelector(".selected-option").textContent =
+      selectedAbility;
+    displaySearchedPokemon(
+      searchbar.value,
+      filterValue.value,
+      dataFilter,
+      selectedAbility
+    );
+    abilityOptions.style.display = "none";
   });
 }
-
-
-
-
-
-customDropdown.addEventListener('click', function () {
-  abilityOptions.style.display = abilityOptions.style.display === "block" ? "none" : "block";
+customDropdown.addEventListener("click", function () {
+  abilityOptions.style.display =
+    abilityOptions.style.display === "block" ? "none" : "block";
 });
 
-document.addEventListener('click', function (e) {
+document.addEventListener("click", function (e) {
   if (!customDropdown.contains(e.target)) {
-    abilityOptions.style.display = 'none';
+    abilityOptions.style.display = "none";
   }
 });
 
-customDropdown.addEventListener('blur', function () {
-  abilityOptions.style.display = 'none';
+customDropdown.addEventListener("blur", function () {
+  abilityOptions.style.display = "none";
 });
 
 listOfAbilities();
 
-function openAdvanceFilter(){
-  document.getElementById("mySidenav").style.width = "450px";
+function openAdvanceFilter() {
+  document.getElementById("mySidenav").style.width = "100%";
 }
-function closeAdvanveFilter(){
+function closeAdvanveFilter() {
   document.getElementById("mySidenav").style.width = "0";
 }
-listOfTypes()
 
-function listOfTypes() {
-  const typeList = document.createElement('div');
-  typeList.classList.add('listOfTypes');
-  typeList.innerHTML = `
-    <div class='row'>
-      <div class='col-3'></div>
-      <div class='col-9 d-flex justify-content-evenly'>
-        <div class='checkbox-heading mx-1'>Type</div>
-        <div class='checkbox-heading mx-1'>Weakness</div>
-      </div>
-    </div>
-  `;
-  advanceTypeAndWeakness.appendChild(typeList);
+const types = [
+  "grass",
+  "poison",
+  "fire",
+  "flying",
+  "water",
+  "bug",
+  "normal",
+  "dark",
+  "electric",
+  "psychic",
+  "ice",
+  "steel",
+  "ground",
+  "fairy",
+  "fighting",
+  "rock",
+  "ghost",
+  "dragon",
+];
 
-  uniqueType = new Set();
-  mergedData.forEach((item) =>
-    item.type.forEach((items) => {
-      uniqueType.add(items);
-    })
-  );
-  typeListArray = Array.from(uniqueType);
-  typeListArray.forEach((item, index) => {
-    const typeList = document.createElement('div');
-    typeList.classList.add('listOfTypes');
-    typeList.innerHTML = `
-      <div class='row m-2'>
-        <div class='col-3 typeWeekness'>${item.charAt(0).toUpperCase() + item.slice(1).toLowerCase()}</div>
-        <div class='col-9 d-flex justify-content-around'>
-          <input type="checkbox" class="checkbox mx-1" name="question${index + 1}[]" value="Type">
-          <input type="checkbox" class="checkbox mx-1" name="question${index + 1}[]" value="Weakness">
-        </div>
-      </div>
-    `;
+function createCheckboxes(containerId, options) {
+  const checkboxesContainer = document.getElementById(containerId);
 
-    advanceTypeAndWeakness.appendChild(typeList);
+  options.forEach((option) => {
+    const checkbox = document.createElement("input");
+    checkbox.type = "checkbox";
+    checkbox.id = option.toLowerCase();
+    checkbox.value = option;
+    checkbox.name = containerId === "typeCheckboxes" ? "type" : "weakness";
+    checkbox.className = "checkbox mx-1";
+
+    checkboxesContainer.appendChild(checkbox);
   });
 }
-function search(){
-  const result = {}
-  document.querySelectorAll(".listOfTypes").forEach(function (typeList,index){
-    const type = typeListArray[index]
-    const checkboxs = []
+function createLabel(item) {
+  item.forEach((option) => {
+    const label = document.createElement("label");
+    label.htmlFor = option.toLowerCase();
+    label.textContent = option;
+    label.className = "label";
+    labelTitle.appendChild(label);
+  });
+}
+createLabel(types);
+createCheckboxes("typeCheckboxes", types);
 
-    typeList.querySelectorAll('input.checkbox:checked').forEach(function(checkbox){
-      checkboxs.push(checkbox.value)
-    })
+createCheckboxes("weaknessCheckboxes", types);
+function searchTypeWeakness() {
+  const selectedTypes = getSelectedCheckboxes("typeCheckboxes");
+  let selectedWeaknesses = getSelectedCheckboxes("weaknessCheckboxes");
+  selectedWeaknesses = selectedWeaknesses.map(
+    (weakness) => weakness.charAt(0).toUpperCase() + weakness.slice(1)
+  );
+  console.log("Types:", selectedTypes);
+  console.log("Weaknesses:", selectedWeaknesses);
 
-    checkboxs.forEach(function (value) {
-      if(!result[value]){
-        result[value] = [type]
+  filteredData = ability.filter((item) => {
+    const typesMatch =
+      selectedTypes.length === 0 ||
+      selectedTypes.some((type) => item.type.includes(type));
+    const weaknessesMatch =
+      selectedWeaknesses.length === 0 ||
+      selectedWeaknesses.some((weakness) => item.weakness.includes(weakness));
+    return typesMatch && weaknessesMatch;
+  });
 
+  console.log(filteredData);
+}
+
+function getSelectedCheckboxes(containerId) {
+  const checkboxes = document.querySelectorAll(
+    `#${containerId} input[type="checkbox"]:checked`
+  );
+  const selectedValues = Array.from(checkboxes).map(
+    (checkbox) => checkbox.value
+  );
+  return selectedValues;
+}
+
+let weightFilterToggle = { 1: false, 2: false };
+let heightFilterToggle = { 1: false, 2: false };
+
+function toggleFilter(filterType, val) {
+  if (filterType === "weight") {
+    if (!weightFilterToggle[val]) {
+      if (val === 1) {
+        lightWeight = ability.filter((value) => {
+          document.querySelector(".minWeight").style.backgroundColor =
+            "#306cb4";
+          return value.weight < 4999;
+        });
+        console.log(lightWeight);
+      } else if (val === 2) {
+        document.querySelector(".maxWeight").style.backgroundColor = "#306cb4";
+        heavyWeight = ability.filter((value) => {
+          return value.weight > 4999;
+        });
+        console.log(heavyWeight);
       }
-      else{
-        result[value].push(type)
+      weight = findHeightWeight(lightWeight, heavyWeight);
+    } else {
+      if (val === 1) {
+        document.querySelector(".minWeight").style.backgroundColor = "";
+        lightWeight = [];
+      } else if (val === 2) {
+        document.querySelector(".maxWeight").style.backgroundColor = "";
+        heavyWeight = [];
       }
-    })
-  })
-  console.log(result,"result")
+      weight = findHeightWeight(lightWeight, heavyWeight);
+    }
+    weightFilterToggle[val] = !weightFilterToggle[val];
+  } else if (filterType === "height") {
+    if (!heightFilterToggle[val]) {
+      if (val === 1) {
+        small = ability.filter((value) => {
+          document.querySelector(".minHeight").style.backgroundColor =
+            "#306cb4";
+          return value.height < 1478;
+        });
+        console.log(small);
+      } else if (val === 2) {
+        document.querySelector(".maxHeight").style.backgroundColor = "#306cb4";
+        large = ability.filter((value) => {
+          return value.height > 1478;
+        });
+        console.log(large);
+      }
+      height = findHeightWeight(small, large);
+    } else {
+      if (val === 1) {
+        document.querySelector(".minHeight").style.backgroundColor = "";
+        small = [];
+      } else if (val === 2) {
+        document.querySelector(".maxHeight").style.backgroundColor = "";
+        large = [];
+      }
+      height = findHeightWeight(small, large);
+    }
+    heightFilterToggle[val] = !heightFilterToggle[val];
+  }
+  if (height.length != 0 && weight.length != 0) {
+    console.log(weight, "weight");
+    console.log(height, "height");
+    heigthWeightAdvanceFilter = height.filter((value) =>
+      weight.includes(value)
+    );
+    console.log("combo of both", heigthWeightAdvanceFilter);
+  } else {
+    heigthWeightAdvanceFilter = finalFilter(height, weight);
+  }
+  console.log(heigthWeightAdvanceFilter);
+}
+
+function filterByWeight(val) {
+  toggleFilter("weight", val);
+}
+
+function filterByheight(val) {
+  toggleFilter("height", val);
+}
+function searchAdvanceFilter() {}
+
+function findHeightWeight(val1, val2) {
+  if (val1.length != 0 && val2.length != 0) {
+    finalResult = val1.concat(val2);
+    console.log("all finalResult", finalResult);
+  } else {
+    finalResult = finalFilter(val1, val2);
+  }
+  return finalResult;
+}
+function finalFilter(val1, val2) {
+  if (val1.length != 0 && val2.length == 0) {
+    finalResult = val1;
+    console.log("val2", finalResult);
+  } else if (val1.length == 0 && val2.length != 0) {
+    finalResult = val2;
+    console.log("val1", finalResult);
+  } else {
+    finalResult = ability;
+    console.log("none finalResult", finalResult);
+  }
+  return finalResult;
 }

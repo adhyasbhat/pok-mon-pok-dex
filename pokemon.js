@@ -3,7 +3,10 @@ const searchbar = document.querySelector(".searchbar");
 const pokemonGrid = document.querySelector("#pokemonGrid");
 const noResult = document.querySelector(".noResult");
 const more = document.querySelector(".more");
-let selectedFilter, ability = mergedData;
+let selectedFilter= mergedData;
+let  ability = mergedData;
+let dataFilter = mergedData;
+// let advanceFilter = mergedData;
 let filterValue = document.getElementById("filterValue");
 let calledBy = "";
 let selectedAbility = ""
@@ -12,12 +15,17 @@ let max = 16;
 let add = 0;
 let sub = 0;
 let count = 0;
-let dataFilter = mergedData;
 const collapseBtn = document.querySelector(".collapseBtn");
 let shuffelPokemon = [];
 createPokemonGrid(min, max, dataFilter);
 let num = {};
-
+var small = []
+var large = []
+var lightWeight = []
+var heavyWeight = []
+var heigthWeightAdvanceFilter = []
+var height = []
+var weight = []
 filterValue.addEventListener("change", function () {
   switch (filterValue.value) {
     case "lowest":
@@ -47,12 +55,12 @@ filterValue.addEventListener("change", function () {
 });
 
 function createPokemonGrid(min, max, selectedFilter) {
-
   calledBy  = createPokemonGrid.caller
   if (max < selectedFilter.length) {
     displayPokemonGrid(min, max, selectedFilter);
     more.style.display = "block";
-  } else if (selectedFilter.length == 0) {
+  }
+   else if (selectedFilter.length == 0) {
     noResult.style.display = "block";
     more.style.display = "none";
   } else if (max >= selectedFilter.length) {
@@ -67,14 +75,15 @@ searchbar.addEventListener("input", function () {
   add = 0;
   sub = 0;
 });
-console.log(selectedAbility)
 function displaySearchedPokemon(searchBarValue, filterValue, dataFilter,abilityFilterValue) {
 
   min = 0;
   max = 16;
   collapseBtn.style.display = "none";
   pokemonGrid.innerHTML = "";
+
 if (searchBarValue == "" && filterValue == "default" && abilityFilterValue == "") {
+  console.log("hi")
     selectedFilter = mergedData;
     createPokemonGrid(min, max, selectedFilter);
 
@@ -274,12 +283,16 @@ function sortByHighestNumber() {
 function sortByHeight() {
   return [...mergedData].sort((a, b) => b.height - a.height);
 }
-
+function sortByHeightAscending(){
+  return [...mergedData].sort((a, b) => a.height - b.height);
+}
 function sortByWeigth() {
   number = [...mergedData].sort((a, b) => b.number - a.number)
   return [...number].sort((a, b) => b.weight - a.weight);
 }
-
+function sortByWeightAscending(){
+  return [...mergedData].sort((a, b) => a.weight - b.weight);
+}
 function sortByA_Z() {
   return [...mergedData].sort((a, b) => a.name.localeCompare(b.name));
 }
@@ -287,6 +300,8 @@ function sortByA_Z() {
 function sortByZ_A() {
   return [...mergedData].sort((a, b) => b.name.localeCompare(a.name));
 }
+
+
 function styleForType(div, val) {
   const blue = ["ice", "water", "poison", "flying"];
   const green = ["grass", "normal", "ground"];
@@ -317,7 +332,9 @@ function SurpriseMe(val) {
     shuffelPokemon = shuffelPokemon.slice(16);
     createPokemonGrid(min, max, shuffelPokemon);
   } else {
-    shuffelPokemon = [...mergedData];
+    console.log(mergedData,'without')
+    console.log([...mergedData],'with')
+    shuffelPokemon = mergedData;
     shuffel(shuffelPokemon);
     add = 0;
     sub = 0;

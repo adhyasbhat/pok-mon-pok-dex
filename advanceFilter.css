@@ -1,0 +1,103 @@
+.advanceFilterImg {
+  height: 4em;
+  width: 4em;
+  cursor: pointer;
+}
+.sidenav {
+  display: grid;
+  align-items: center;
+  height: 100%;
+  width: 0;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  background-image: url(sidenav-background.png);
+  border: 3px solid white;
+  box-shadow: 0 0 10px 2px #306cb4;
+  overflow-x: hidden;
+  overflow-y: scroll;
+  transition: 0.5s;
+  padding-top: 60px;
+}
+
+.sidenav a {
+  padding: 8px 8px 8px 32px;
+  text-decoration: none;
+  font-size: 25px;
+  color: #306cb4;
+  display: block;
+  transition: 0.3s;
+}
+
+.sidenav a:hover {
+  color: #ffcb05;
+}
+
+.sidenav .closebtn {
+  position: absolute;
+  top: 0;
+  right: 25px;
+  font-size: 36px;
+  margin-left: 50px;
+}
+
+#abilityOptions::-webkit-scrollbar {
+  width: 10px;
+}
+
+#abilityOptions::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+#abilityOptions::-webkit-scrollbar-thumb {
+  background: rgb(80, 79, 79);
+  height: 2em;
+}
+
+#abilityFilter {
+  width: 14em;
+  height: 12em;
+  padding: 5px;
+  font-size: 14px;
+}
+
+.checkbox {
+  height: 2em;
+  width: 2em;
+  accent-color: #306cb4;
+}
+
+#abilityOptions {
+  height: 13em;
+  width: 19em;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  background: rgb(80, 79, 79);
+  opacity: 0.87;
+  color: white;
+}
+.option {
+  list-style: none;
+}
+
+.weightFilter > img,
+.heightFilter > img {
+  height: 4em;
+  width: 4em;
+}
+.minWeight > img {
+  height: 2.5em;
+  width: 2.5em;
+}
+.weightFilter,
+.heightFilter {
+  align-items: center;
+  border-radius: 1em;
+  cursor: pointer;
+}
+.heightHeading,
+.weightHeading {
+  display: grid;
+  align-items: center;
+}

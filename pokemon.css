@@ -1,250 +1,216 @@
-*{
-    font-family:kelly slab;
+* {
+  font-family: kelly slab;
 }
-body{
-    background-image: url(background\ copy.png) !important;
-    background-size: cover;
-    background: white;
+body {
+  background-image: url(background\ copy.png) !important;
+  background-size: cover;
+  background: white;
 }
-.logo{
-    width: 11em;
+.logo {
+  width: 11em;
 }
-.searchbar, .filter, .dropDown1, .dropDown2, .selected-option{
-    width: 19em;
-    height: 2em;
-    border: 2px solid;
-    border-image: linear-gradient(to right, #306cb4, #ffcb05);
-    border-image-slice: 1;
-    outline: none;
-    align-items: center;
-    display: grid;
+.searchbar,
+.filter,
+.dropDown1,
+.dropDown2,
+.selected-option {
+  width: 19em;
+  height: 2em;
+  border: 2px solid;
+  border-image: linear-gradient(to right, #306cb4, #ffcb05);
+  border-image-slice: 1;
+  outline: none;
+  align-items: center;
+  display: grid;
 }
 
-.searchbar::placeholder , .filter , .compare , .refresh{
-    font-size: 1.3em;
+.searchbar::placeholder,
+.filter,
+.compare,
+.refresh {
+  font-size: 1.3em;
 }
-.searchbar::placeholder, .filter {
-    font-size: 0.98em;
+.searchbar::placeholder,
+.filter {
+  font-size: 0.98em;
 }
-.refresh{
-    cursor: pointer;
+.refresh {
+  cursor: pointer;
 }
-.filterImg , .compareImg , .refreshImg{
-    width: 1.2em;
-    height: 1.2em;
+.filterImg,
+.compareImg,
+.refreshImg {
+  width: 1.2em;
+  height: 1.2em;
 }
-.compare a{
-    color: inherit;
-     text-decoration: none;
+.compare a {
+  color: inherit;
+  text-decoration: none;
 }
-.compareBtn:hover{
-    background:  #ffcb05;
+.compareBtn:hover {
+  background: #ffcb05;
+}
+.searchDiv {
+  position: relative;
+  cursor: pointer;
+}
+.searchImg {
+  position: absolute;
+  top: 6px;
+  right: 44px;
+}
+
+.pokemonCard {
+  border: 2px solid gray;
+  border-radius: 1em;
+  width: 20%;
+  cursor: pointer;
+  height: 19em;
+  display: grid;
+  align-items: center;
+}
+.pokemonCard:hover:nth-child(odd) {
+  border: 2px solid #306cb4;
+  box-shadow: 0 0 10px 2px #306cb4;
+}
+.pokemonCard:hover:nth-child(even) {
+  border: 2px solid #ffcb05;
+  box-shadow: 0 0 10px 2px #ffcb05;
+}
+.pokemonName {
+  font-size: 1.2em;
+}
+.heightWeigthCol {
+  font-weight: bolder;
+}
+.eachRow {
+  justify-content: space-evenly;
+  align-items: center;
+}
+.eachType {
+  border: 2px solid;
+  border-radius: 1em;
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+.blue {
+  background: linear-gradient(to right, #306cb4, #87ceeb);
+}
+.yellow {
+  background: linear-gradient(to right, #ffcb05, #ffffcc);
+}
+.red {
+  background: linear-gradient(to right, red, orange);
+}
+.green {
+  background: linear-gradient(to right, #006400, #3eb39e);
+}
+.grey {
+  background: linear-gradient(to right, gray, white);
+}
+.blue:hover {
+  background: linear-gradient(to left, #306cb4, #87ceeb);
+}
+.yellow:hover {
+  background: linear-gradient(to left, #ffcb05, #ffffcc);
+}
+.red:hover {
+  background: linear-gradient(to left, red, orange);
+}
+.green:hover {
+  background: linear-gradient(to left, #006400, #3eb39e);
+}
+.grey:hover {
+  background: linear-gradient(to left, gray, white);
+}
+.more,
+.collapseBtn,
+.compareBtn,
+.search {
+  background: #ffcb05;
+  border: 2px solid #306cb4;
+  color: #306cb4;
+  width: 17em;
+  border-radius: 6px;
+}
+.search {
+  width: 14em;
+}
+.bold {
+  font-weight: 900;
+  font-size: 1.1em;
+  color: red;
+  text-decoration: underline;
+}
+.bolder {
+  font-weight: 900;
+  font-size: 2em;
+}
+.pieChart {
+  height: 9em;
+  width: 10em;
+}
+
+.title {
+  color: #306cb4;
+  font-size: 2em;
+  text-transform: uppercase;
+  letter-spacing: 5px;
+  transform-style: preserve-3d;
+  text-shadow: 2px 2px 0 #ffcb05, 3px 3px 0 #ffcb05, 4px 4px 0 #ffcb05;
+  transform: rotateY(25deg) rotateX(-10deg);
+}
+
+.dropDownHeading,
+.typeHeading,
+.weaknessHeading,
+label,.weightHeading,.heightHeading {
+  color: #ffcb05;
+  font-size: 1.3em;
+}
+
+@media (max-width: 1016px) {
+  .pokemonCard {
+    width: 30% !important;
+  }
+  .searchbar,
+  #filterValue {
+    width: 14em !important;
+  }
+}
+@media (max-width: 600px) {
+  .pokemonCard {
+    width: 40% !important;
+  }
+  .searchbar,
+  #filterValue {
+    width: 8em !important;
+  }
+}
+@media (max-width: 420px) {
+    .basicFilter{
+        display: block !important;
+    }
+  .pokemonCard {
+    width: 60% !important;
+  }
+  .searchbar,
+  #filterValue {
+    width: 14em !important;
+    margin: 1em;
+  }
+}
+@media (max-width: 390px) {
+    .basicFilter{
+        display: block !important;
+    }
+    .searchbar,
+    #filterValue {
+      width: 14em !important;
+      margin: 1em;
+    }
     
 }
-.searchDiv{
-    position: relative;
-    cursor: pointer;
-}
-.searchImg{
-position: absolute;
-top: 6px;
-right: 44px;
-}
-
-.pokemonCard{
-    border: 2px solid gray;
-    border-radius: 1em;
-    width: 20%;
-    cursor: pointer;
-    height: 19em;
-    display: grid;
-    align-items: center;
-}
-.pokemonCard:hover:nth-child(odd){
-    border: 2px solid #306cb4;
-    box-shadow: 0 0 10px 2px #306cb4;
-}
-.pokemonCard:hover:nth-child(even){
-    border: 2px solid #ffcb05;
-    box-shadow: 0 0 10px 2px #ffcb05;
-}
-.pokemonName{
-    font-size: 1.2em;
-}
-.heightWeigthCol{
-    font-weight: bolder;
-}
-.eachRow{
-   justify-content: space-evenly;
-   align-items: center;
-}
-.eachType{
-    border: 2px solid;
-    border-radius: 1em;
-    align-items: center;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    cursor: pointer;
-}
-.blue{
-   
-    background: linear-gradient(to right, #306cb4, #87CEEB);
-}
-.yellow{
-    background: linear-gradient(to right, #ffcb05, #ffffcc);
-}
-.red{
-    background: linear-gradient(to right, red, orange);
-}
-.green{
-    background: linear-gradient(to right, #006400, #3eb39e);
-}
-.grey{
-    background: linear-gradient(to right, gray,white);
-}
-.blue:hover{
-    background: linear-gradient(to left, #306cb4, #87CEEB);
-}
-.yellow:hover{
-    background: linear-gradient(to left, #ffcb05, #ffffcc);
-}
-.red:hover{
-    background: linear-gradient(to left, red, orange);
-}
-.green:hover{
-    background: linear-gradient(to left, #006400, #3eb39e);
-}
-.grey:hover{
-    background: linear-gradient(to left, gray,white);
-}
-.more, .collapseBtn, .compareBtn, .search{
-    background: #ffcb05;
-    border: 2px solid #306cb4;
-    color: #306cb4;
-    width: 17em;
-    border-radius: 6px;
-    
-}
-.search{
-    width: 14em;
-}
-.bold{
-    font-weight: 900;
-    font-size: 1.1em;
-    color: red;
-    text-decoration: underline;
-}
-.bolder{
-    font-weight: 900;
-    font-size: 2em
-}
-.pieChart{
-    height: 9em;
-    width: 10em;
-}
-.advanceFilterImg{
-    height: 4em;
-    width: 4em;
-    cursor: pointer;
-}
-.sidenav {
-    height: 100%;
-    width: 0;
-    position: fixed;
-    z-index: 1;
-    top: 0;
-    left: 0;
-    background-image: url(sidenav-background.png);
-    border: 3px solid white;
-    box-shadow: 0 0 10px 2px #306cb4;
-    overflow-x: hidden;
-    overflow-y: scroll;
-    transition: 0.5s;
-    padding-top: 60px;
-  }
-  
-  .sidenav a {
-    padding: 8px 8px 8px 32px;
-    text-decoration: none;
-    font-size: 25px;
-    color: #306cb4;
-    display: block;
-    transition: 0.3s;
-  }
-  
-  .sidenav a:hover {
-    color: #ffcb05;
-  }
-  
-  .sidenav .closebtn {
-    position: absolute;
-    top: 0;
-    right: 25px;
-    font-size: 36px;
-    margin-left: 50px;
-  }
-
-/* For WebKit-based browsers */
-/* Width and height of the scrollbar */
-.sidenav::-webkit-scrollbar {
-    width: 10px; /* Adjust as needed */
-  }
-  
-  /* Track */
-  .sidenav::-webkit-scrollbar-track {
-    background: #f1f1f1; /* Change the background color */
-  }
-  
-  /* Handle */
-  .sidenav::-webkit-scrollbar-thumb {
-    background: #306cb4; 
-    border-radius: 5px; 
-  }
-
-
-  #abilityFilter{
-    width: 14em; 
-    height: 12em; 
-    padding: 5px; 
-    font-size: 14px; 
-  }
-  .title{
-    color: #306cb4; /* Text color */
-    font-size: 2em; /* Font size */
-    text-transform: uppercase; /* Uppercase text */
-    letter-spacing: 5px; /* Letter spacing */
-    transform-style: preserve-3d; /* Maintain 3D effect */
-    text-shadow: 
-      2px 2px 0 #ffcb05, /* Shadow for depth effect */
-      3px 3px 0 #ffcb05, 
-      4px 4px 0 #ffcb05; 
-    transform: rotateY(25deg) rotateX(-10deg);
-  }
-  .typeWeekness{
-    font-size: 1.2em;
-   color: #306cb4;
-  }
-  .dropDownHeading, .checkbox-heading{
-    color:#ffcb05 ;
-    font-size: 1.3em;
-  }
-  .checkbox{
-    width: 1.7em;
-    height: 1.7em;
-  }
-  .checkbox:checked{
-    accent-color: #306cb4;
-  }
-
-  #abilityOptions{
-    height: 13em;
-    overflow: scroll;
-    background: rgb(80, 79, 79);
-    opacity: 0.87;
-    border-radius: 0.7em;
-    color: white;
-  }
-  .option{
-    list-style: none;
-  }

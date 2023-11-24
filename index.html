@@ -5,26 +5,35 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Pokemon</title>
     <link rel="icon" type="image/x-icon" href="ball.png" />
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Kelly+Slab&display=swap" rel="stylesheet">
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
+      crossorigin="anonymous"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Kelly+Slab&display=swap"
+      rel="stylesheet"
+    />
     <link rel="stylesheet" href="pokemon.css" />
+    <link rel="stylesheet" href="advanceFilter.css">
     <script src="https://cdn.jsdelivr.net/npm/echarts/dist/echarts.min.js"></script>
     <script src="echarts.js"></script>
   </head>
   <body>
     <div id="mySidenav" class="sidenav">
-      <a href="javascript:void(0)" class="closebtn" onclick="closeAdvanveFilter()">&times;</a>
+      <a
+        href="javascript:void(0)"
+        class="closebtn"
+        onclick="closeAdvanveFilter()"
+        >&times;</a
+      >
       <div class="row title d-flex justify-content-center my-1 mb-2">
-        Advance Search 
+        Advance Search
       </div>
-      <!-- <div class="row m-2">
-        <div class="col-12">
-          <label for="" class="dropDownHeading">Ability</label>
-          <select name="" id="abilityFilter" onclick="listOfAbilities()" onchange="abilitySelected()"></select>    
-        </div>
-      </div> -->
+
       <div class="row m-2">
         <div class="col-12">
           <label for="" class="dropDownHeading">Ability</label>
@@ -34,80 +43,152 @@
           </div>
         </div>
       </div>
-      
-      
-      <div class="row advanceTypeAndWeekness">
+      <hr />
 
+      <div class="row m-2 advanceTypeAndWeekness">
+        <div class="col-12 d-flex justify-content-end">
+          <div class="col-11 d-flex justify-content-between labelTitle"></div>
+        </div>
+        <div class="question d-flex col-12 my-1">
+          <span class="col-1 typeHeading">Type:</span>
+          <div
+            class="checkboxes d-flex col-11 justify-content-between"
+            id="typeCheckboxes"
+          ></div>
+        </div>
+
+        <div class="question d-flex col-12 my-1">
+          <span class="col-1 weaknessHeading">Weakness:</span>
+          <div
+            class="checkboxes d-flex col-11 justify-content-between"
+            id="weaknessCheckboxes"
+          ></div>
+        </div>
       </div>
+      <hr>
+      <div class="m-2 row d-flex justify-content-between">
+        <div class="col-5 d-flex justify-content-center m-2">
+          <span class="weightHeading">Weight</span>
+            <div class="col-3 d-flex justify-content-center weightFilter minWeight border p-3 mx-2" type="weight" onclick="filterByWeight(1)">
+              
+                <img src="heavy.png" alt="" />
+            </div>
+            <div class="col-3 d-flex justify-content-center weightFilter maxWeight border p-3 mx-2" type="weight" onclick="filterByWeight(2)">
+              
+                <img src="heavy.png" alt="" />
+            </div>
+        </div>
+        <div class="col-5 d-flex justify-content-center m-2">
+          <span class="heightHeading">Height</span>
+            <div class="col-3 d-flex justify-content-center heightFilter minHeight border p-3 mx-2" type="height" onclick="filterByheight(1)">
+                <img src="shrink.png" alt="" srcset="" />
+            </div>
+            <div class="col-3 d-flex justify-content-center heightFilter maxHeight border p-3 mx-2" type="height" onclick="filterByheight(2)">
+                <img src="expanding-two-opposite-arrows-diagonal-symbol-of-interface.png" alt="" srcset="" data-value=1479 />
+            </div>
+        </div>
+    </div>
+    
       <div class="row d-flex justify-content-center m-2">
-        <button class="search" onclick="search()">SEARCH</button>
+        <button class="search" onclick="searchTypeWeakness()">SEARCH</button>
       </div>
     </div>
     <nav class="mx-3 m-1 d-flex justify-content-between">
-      <img onclick="openAdvanceFilter()" src="pikachu.png" alt="" srcset="" class="advanceFilterImg" title="Advance Filter">
-<img class="logo" src="logo.svg" alt="" srcset="" /></nav>
+      <img
+        onclick="openAdvanceFilter()"
+        src="pikachu.png"
+        alt=""
+        srcset=""
+        class="advanceFilterImg"
+        title="Advance Filter"
+      />
+      <img class="logo" src="logo.svg" alt="" srcset="" />
+    </nav>
     <div class="row m-1 mt-3">
-      <div class="col-12 d-flex">
+      <div class="col-12 d-flex basicFilter">
         <div class="searchDiv col-3 text-center">
-          <input 
+          <input
             class="searchbar p-2"
             type="text"
             name=""
             id="searchValue"
             placeholder="Search your favourate pokemon/number"
           />
-        
         </div>
-        <div class="dropDown  col-3">
-          <select class="form-select form-select-sm filter" aria-label=".form-select-sm example" id="filterValue">
+        <div class="dropDown col-3">
+          <select
+            class="form-select form-select-sm filter"
+            aria-label=".form-select-sm example"
+            id="filterValue"
+          >
             <option selected value="default">None</option>
             <option value="lowest">Lowest Number</option>
             <option value="highest">Highest number</option>
             <option value="atoz">A-Z</option>
             <option value="ztoa">Z-A</option>
             <option value="height">Height</option>
-            <option value="weigth">Weigth</option>
-            
+            <option value="weigth">Weight</option>
           </select>
         </div>
-        <div class="compare col-3 text-center"><a href="compare.html">Compare</a><img class="compareImg" src="ball.png" alt=""></div>
-        <div class="refresh col-3 text-end" onclick="SurpriseMe()">Surprise Me <img class="refreshImg" src="refresh.png" alt=""></div>
+        <div class="compare col-3 text-center">
+          <a href="compare.html">Compare</a
+          ><img class="compareImg" src="ball.png" alt="" />
+        </div>
+        <div class="refresh col-3 text-end" onclick="SurpriseMe()">
+          Surprise Me <img class="refreshImg" src="refresh.png" alt="" />
+        </div>
       </div>
     </div>
-    <div class="main" id="pokemonGrid">
-
-    </div>
+    <div class="main" id="pokemonGrid"></div>
     <div class="noResultFound d-flex justify-content-center p-5">
-      <img class="noResult" src="no-results.png" alt="" style="display: none;">
+      <img class="noResult" src="no-results.png" alt="" style="display: none" />
     </div>
     <div class="row">
-        <div class="col-12 d-flex justify-content-center">
-            <button class="more m-1" onclick="addMore()"style="display: none;">SEE MORE</button>
-            <button class="collapseBtn m-1" onclick="collapse()" style="display: none;">COLLAPSE</button>
+      <div class="col-12 d-flex justify-content-center">
+        <button class="more m-1" onclick="addMore()" style="display: none">
+          SEE MORE
+        </button>
+        <button
+          class="collapseBtn m-1"
+          onclick="collapse()"
+          style="display: none"
+        >
+          COLLAPSE
+        </button>
+      </div>
+    </div>
+    <div
+      class="modal fade"
+      id="pokemonModal"
+      tabindex="-1"
+      aria-labelledby="pokemonModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="pokemonModalLabel">Pokemon Details</h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body">
+          </div>
         </div>
-    </div>
-    <!-- Bootstrap Modal -->
-<div class="modal fade" id="pokemonModal" tabindex="-1" aria-labelledby="pokemonModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="pokemonModalLabel">Pokemon Details</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        <!-- Content will be populated dynamically -->
       </div>
     </div>
-  </div>
-</div>
-
   </body>
-  
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+
+  <script
+    src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+    crossorigin="anonymous"
+  ></script>
   <script src="listOfPokemon.js"></script>
-
-
   <script src="piechart.js"></script>
-  <script  src="pokemon.js"></script>
+  <script src="pokemon.js"></script>
   <script src="advanceFilter.js"></script>
 </html>
