@@ -24,7 +24,7 @@
   <body>
     <nav class="m-1">
       <a href="index.html"
-        ><img class="logo" src="logo.svg" alt="" srcset=""
+        ><img class="logo" src="./img/logo.svg" alt="" srcset=""
       /></a>
     </nav>
     <div class="row title d-flex justify-content-center my-2">
@@ -34,23 +34,22 @@
       <div class="col-12 d-flex justify-content-evenly">
         <div class="col-5 d-flex justify-content-center">
           <div class="pokemon1">
-            <select class="dropDown1" onclick="pokemonDropdown(1)" onchange="pokemonDropdownValueCheck(1)"></select>
-            <div class="pokemon1Details mt-3 align-items-center" style="display: none;">
-
-            </div>
+            <input type="text" class="searchBox1" placeholder="Search..." oninput="pokemonDropdown(1)">
+            <ul class="dropDown1" style="display: none;"></ul>
+            <div class="pokemon1Details mt-3 align-items-center" style="display: none;"></div>
           </div>
         </div>
         <div class="col-2 d-flex justify-content-center align-items-center">
-          <img class="vs" src="vs.png" alt="" style="display: none;">
+          <img class="vs" src="./img/vs.png" alt="" style="display: none;">
         </div>
         <div class="col-5 d-flex justify-content-center">
           <div class="pokemon2">
-            <select class="dropDown2" onclick="pokemonDropdown(2)"onchange="pokemonDropdownValueCheck(2)"></select>
-            <div class="pokemon2Details mt-3 align-items-center"style="display: none;">
-                
-            </div>
+            <input type="text" class="searchBox2" placeholder="Search..." oninput="pokemonDropdown(2)">
+            <ul class="dropDown2" style="display: none;"></ul>
+            <div class="pokemon2Details mt-3 align-items-center" style="display: none;"></div>
           </div>
         </div>
+        
       </div>
     </div>
     <div class="row"><div class="col-12 d-flex justify-content-center">
@@ -58,7 +57,7 @@
     </div></div>
     <div class="row">
       <div class="col-12 d-flex justify-content-center" >
-        <h2 class="winningPokemon" style="display: none;">WINNER IS</h2>
+        <h2 class="winningPokemon" style="display: none;">WINNER IS : </h2>
         <h2 class="winner"></h2>
       </div>
     </div>
@@ -70,6 +69,5 @@
   ></script>
 
   <script src="listOfPokemon.js"></script>
-
   <script src="comapre.js"></script>
 </html>

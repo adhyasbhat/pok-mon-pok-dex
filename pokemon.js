@@ -3,45 +3,54 @@ const searchbar = document.querySelector(".searchbar");
 const pokemonGrid = document.querySelector("#pokemonGrid");
 const noResult = document.querySelector(".noResult");
 const more = document.querySelector(".more");
-let selectedFilter= mergedData;
-let  ability = mergedData;
-let dataFilter = mergedData;
-// let advanceFilter = mergedData;
-let filterValue = document.getElementById("filterValue");
-let calledBy = "";
-let selectedAbility = ""
-let min = 0;
-let max = 16;
-let add = 0;
-let sub = 0;
-let count = 0;
+var selectedFilter= [];
+var dataFilter = mergedData;
+var filteredData = mergedData
+var advanceFilter = mergedData;
+var combinedFilter = [];
+var filterValue = document.getElementById("filterValue");
+var calledBy = "";
+var advanceCalledBy = "";
+var selectedAbility = ""
+var min = 0;
+var max = 16;
+var add = 0;
+var sub = 0;
+var count = 0;
 const collapseBtn = document.querySelector(".collapseBtn");
-let shuffelPokemon = [];
-createPokemonGrid(min, max, dataFilter);
-let num = {};
+var shuffelPokemon = [];
+var num = {};
 var small = []
 var large = []
 var lightWeight = []
 var heavyWeight = []
 var heigthWeightAdvanceFilter = []
 var height = []
+var checkboxFilter = []
+var heigthWeightAdvanceFilter = []
+var  ability = [];
 var weight = []
+
+createPokemonGrid(min, max, dataFilter);
 filterValue.addEventListener("change", function () {
   switch (filterValue.value) {
     case "lowest":
-      dataFilter = mergedData;
+      dataFilter = sortByLowestNumber();
       break;
     case "atoz":
       dataFilter = sortByA_Z();
       break;
     case "ztoa":
       dataFilter = sortByZ_A();
+      console.log(dataFilter)
       break;
     case "height":
       dataFilter = sortByHeight();
+      console.log(dataFilter)
       break;
     case "weigth":
       dataFilter = sortByWeigth();
+      console.log(dataFilter)
       break;
     case "highest":
       dataFilter = sortByHighestNumber();
@@ -51,11 +60,14 @@ filterValue.addEventListener("change", function () {
   sub = 0;
   pokemonGrid.innerHTML = "";
   collapseBtn.style.display = "none";
-  displaySearchedPokemon(searchbar.value, filterValue.value, dataFilter,selectedAbility);
+  displaySearchedPokemon(searchbar.value, dataFilter);
 });
 
 function createPokemonGrid(min, max, selectedFilter) {
   calledBy  = createPokemonGrid.caller
+  console.log(selectedFilter)
+  console.log('selectedFilter length: ',selectedFilter.length)
+  console.log(max)
   if (max < selectedFilter.length) {
     displayPokemonGrid(min, max, selectedFilter);
     more.style.display = "block";
@@ -66,64 +78,43 @@ function createPokemonGrid(min, max, selectedFilter) {
   } else if (max >= selectedFilter.length) {
     displayPokemonGrid(min, max, selectedFilter);
     more.style.display = "none";
-  } else {
+  }
+   else {
     displayPokemonGrid(min, max, selectedFilter);
   }
 }
 searchbar.addEventListener("input", function () {
-  displaySearchedPokemon(searchbar.value, filterValue.value, dataFilter,selectedAbility);
+  displaySearchedPokemon(searchbar.value,combinedFilter);
   add = 0;
   sub = 0;
 });
-function displaySearchedPokemon(searchBarValue, filterValue, dataFilter,abilityFilterValue) {
-
+function displaySearchedPokemon(searchBarValue,filterValue) {
   min = 0;
   max = 16;
   collapseBtn.style.display = "none";
   pokemonGrid.innerHTML = "";
-
-if (searchBarValue == "" && filterValue == "default" && abilityFilterValue == "") {
-  console.log("hi")
-    selectedFilter = mergedData;
-    createPokemonGrid(min, max, selectedFilter);
-
-  } else if (searchBarValue == "" && filterValue == "default" && abilityFilterValue != "") {
-    selectedFilter = sortByAbilities(abilityFilterValue,dataFilter)
-    createPokemonGrid(min, max, selectedFilter);
-    handleMore(max,selectedFilter)
-
-  } 
-  else if (searchBarValue == "" && filterValue != "default" && abilityFilterValue ==""){
-    selectedFilter = dataFilter
-    createPokemonGrid(min, max, selectedFilter);
+  advanceCalledBy = displaySearchedPokemon.caller
+  if(advanceCalledBy === combinedAdvanceFilter && filterValue.length == 0){
+    selectedFilter = filterValue
+    createPokemonGrid(min, max, selectedFilter)
   }
-  else if(searchBarValue == "" && filterValue != "default" && abilityFilterValue != ""){
-    selectedFilter = sortByAbilities(abilityFilterValue,dataFilter)
-    createPokemonGrid(min, max, selectedFilter);
-    handleMore(max,selectedFilter)
+ else if (searchBarValue  == "" && filterValue == ""){
+    createPokemonGrid(min,max,mergedData)
   }
-  else if(searchBarValue != "" && filterValue == "default" && abilityFilterValue == ""){
-    selectedFilter = filterBySearch(searchBarValue,dataFilter)
-    createPokemonGrid(min, max, selectedFilter);
-    handleMore(max,selectedFilter)
-  }
-  else if(searchBarValue != "" && filterValue == "default" && abilityFilterValue != ""){
-    firstFilter = sortByAbilities(abilityFilterValue,dataFilter)
-    selectedFilter = filterBySearch(searchBarValue,firstFilter)
-    createPokemonGrid(min, max, selectedFilter);
-    handleMore(max,selectedFilter)
-  }
-  else if (searchBarValue != "" && filterValue != "default" && abilityFilterValue == "") {
-    selectedFilter = filterBySearch(searchBarValue,dataFilter)
+   else if(searchBarValue != "" && filterValue == ""){
+      selectedFilter =  filterBySearch(searchBarValue,mergedData)
       createPokemonGrid(min, max, selectedFilter);
-      handleMore(max,selectedFilter)
     }
-  else if(searchBarValue != "" && filterValue != "default" && abilityFilterValue !=""){
-    firstFilter = sortByAbilities(abilityFilterValue,dataFilter)
-    selectedFilter = filterBySearch(searchBarValue,firstFilter)
-    createPokemonGrid(min, max, selectedFilter);
-    handleMore(max,selectedFilter)
-  }
+    else if(searchBarValue !="" && filterValue !=""){
+      selectedFilter = filterBySearch(searchBarValue,filterValue)
+      createPokemonGrid(min, max, selectedFilter);
+    }
+    else{
+      selectedFilter = filterValue
+      createPokemonGrid(min, max, selectedFilter);
+    }
+  
+ 
 }
 
 function filterBySearch(searchBarValue,dataFilter){
@@ -132,13 +123,15 @@ function filterBySearch(searchBarValue,dataFilter){
       item.name.startsWith(
         searchBarValue.charAt(0).toUpperCase() +
           searchBarValue.slice(1).toLowerCase()
-      )
+
+      ),
     );
   } else if (/^\d+$/.test(searchBarValue)) {
     selectedFilterForSearch = dataFilter.filter((item) =>
       item.number.includes(searchBarValue)
     );
   }
+  console.log(selectedFilterForSearch)
   return selectedFilterForSearch
 }
 
@@ -151,6 +144,7 @@ function handleMore(max,selectedFilter){
 }
 
 function displayPokemonGrid(min, max, selectedFilter) {
+  console.log(selectedFilter)
   noResult.style.display = "none";
   const row = document.createElement("div");
   row.className = "eachRow row";
@@ -253,7 +247,13 @@ function addMore() {
 
   }
   else{
-    createPokemonGrid(min, max, selectedFilter);
+    if(selectedFilter == ""){
+      createPokemonGrid(min, max, mergedData);
+    }
+    else{
+      createPokemonGrid(min, max, selectedFilter);
+    }
+    
   }
 
   collapseBtn.style.display = "block";
@@ -275,31 +275,71 @@ function collapse() {
     }
   }
 }
-
+function sortByLowestNumber(){
+  if(combinedFilter.length == 0){
+    return [...mergedData].sort((a, b) => a.number - b.number);
+  }
+  else{
+    return [...combinedFilter].sort((a, b) => a.number - b.number);
+  }
+}
 function sortByHighestNumber() {
-  return [...mergedData].sort((a, b) => b.number - a.number);
+  if(combinedFilter.length == 0){
+    return [...mergedData].sort((a, b) => b.number - a.number);
+  }
+  else{
+    return [...combinedFilter].sort((a, b) => b.number - a.number);
+  }
 }
 
 function sortByHeight() {
-  return [...mergedData].sort((a, b) => b.height - a.height);
-}
+  if(combinedFilter.length == 0){
+    return [...mergedData].sort((a, b) => b.height - a.height);
+  }
+  else{
+  return [...combinedFilter].sort((a, b) => b.height - a.height);
+}}
 function sortByHeightAscending(){
-  return [...mergedData].sort((a, b) => a.height - b.height);
-}
+  if(combinedFilter.length == 0){
+    return [...mergedData].sort((a, b) => a.height - b.height);
+  }
+  else{
+  return [...combinedFilter].sort((a, b) => a.height - b.height);
+}}
 function sortByWeigth() {
-  number = [...mergedData].sort((a, b) => b.number - a.number)
-  return [...number].sort((a, b) => b.weight - a.weight);
+  if(combinedFilter.length == 0){
+    number = [...mergedData].sort((a, b) => b.number - a.number)
+    }
+  else{
+  number = [...combinedFilter].sort((a, b) => b.number - a.number)
+}
+return [...number].sort((a, b) => b.weight - a.weight);
 }
 function sortByWeightAscending(){
-  return [...mergedData].sort((a, b) => a.weight - b.weight);
+  if(combinedFilter.length == 0){
+    return [...mergedData].sort((a, b) => a.weight - b.weight);
+  }
+  else{
+    return [...combinedFilter].sort((a, b) => a.weight - b.weight);
+
+  }
 }
 function sortByA_Z() {
-  return [...mergedData].sort((a, b) => a.name.localeCompare(b.name));
-}
+  if(combinedFilter.length == 0){
+    return [...mergedData].sort((a, b) => a.name.localeCompare(b.name));
+  }
+  else{
+  return [...combinedFilter].sort((a, b) => a.name.localeCompare(b.name));
+}}
+
 
 function sortByZ_A() {
-  return [...mergedData].sort((a, b) => b.name.localeCompare(a.name));
-}
+  if(combinedFilter.length == 0){
+    return [...mergedData].sort((a, b) => b.name.localeCompare(a.name));
+  }
+  else{
+  return [...combinedFilter].sort((a, b) => b.name.localeCompare(a.name));
+}}
 
 
 function styleForType(div, val) {

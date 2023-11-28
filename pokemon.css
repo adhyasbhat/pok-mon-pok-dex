@@ -2,7 +2,7 @@
   font-family: kelly slab;
 }
 body {
-  background-image: url(background\ copy.png) !important;
+  background-image: url(./img/background\ copy.png) !important;
   background-size: cover;
   background: white;
 }
@@ -11,9 +11,9 @@ body {
 }
 .searchbar,
 .filter,
-.dropDown1,
-.dropDown2,
-.selected-option {
+.searchBox1,
+.searchBox,
+.ability-search {
   width: 19em;
   height: 2em;
   border: 2px solid;
@@ -23,7 +23,10 @@ body {
   align-items: center;
   display: grid;
 }
-
+.filter,
+.ability-search {
+  cursor: pointer;
+}
 .searchbar::placeholder,
 .filter,
 .compare,
@@ -96,6 +99,10 @@ body {
   align-items: center;
   cursor: pointer;
 }
+.typeOfPokemon {
+  height: 10em;
+  overflow-y: auto;
+}
 .blue {
   background: linear-gradient(to right, #306cb4, #87ceeb);
 }
@@ -167,11 +174,15 @@ body {
 .dropDownHeading,
 .typeHeading,
 .weaknessHeading,
-label,.weightHeading,.heightHeading {
+label,
+.weightHeading,
+.heightHeading {
   color: #ffcb05;
   font-size: 1.3em;
 }
-
+.disableField {
+  cursor: no-drop;
+}
 @media (max-width: 1016px) {
   .pokemonCard {
     width: 30% !important;
@@ -191,9 +202,9 @@ label,.weightHeading,.heightHeading {
   }
 }
 @media (max-width: 420px) {
-    .basicFilter{
-        display: block !important;
-    }
+  .basicFilter {
+    display: block !important;
+  }
   .pokemonCard {
     width: 60% !important;
   }
@@ -204,13 +215,12 @@ label,.weightHeading,.heightHeading {
   }
 }
 @media (max-width: 390px) {
-    .basicFilter{
-        display: block !important;
-    }
-    .searchbar,
-    #filterValue {
-      width: 14em !important;
-      margin: 1em;
-    }
-    
+  .basicFilter {
+    display: block !important;
+  }
+  .searchbar,
+  #filterValue {
+    width: 14em !important;
+    margin: 1em;
+  }
 }

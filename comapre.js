@@ -1,121 +1,132 @@
-const dropDown1 = document.querySelector(".dropDown1")
-const dropDown2 = document.querySelector(".dropDown2")
-const pokemon1Details = document.querySelector(".pokemon1Details")
-const pokemon2Details = document.querySelector(".pokemon2Details")
-const compareBtn = document.querySelector('.compareBtn')
-const winningPokemon = document.querySelector('.winningPokemon')
-const vs = document.querySelector('vs')
-function pokemonDropdown(num){
-  mergedData.forEach((item) =>{
-    const pokemonList = document.createElement('option')
-    pokemonList.className = 'pokemonName'
-    pokemonList.textContent = item.name
-    if(num ==1){
-      dropDown1.add(pokemonList)
-    }
-    else if(num ==2){
-      dropDown2.add(pokemonList)
-    }
-    
-  })
-}
-function pokemonDropdownValueCheck(num){
-  console.log("valeed")
-  if(num == 1){
-    pokemon1Details.innerHTML = ""
-    pokemon1Details.style.display = "block"
-    displaySelectedPokemon(dropDown1.value,num)
-  }
-  else if(num == 2){
-    pokemon2Details.innerHTML = ""
-    pokemon2Details.style.display = "block"
-    displaySelectedPokemon(dropDown2.value,num)
-  }
-}
-function displaySelectedPokemon(value,num){
-  const wholeDetails = document.createElement('div')
-  wholeDetails.className = "wholeDetails"
+const dropDown1 = document.querySelector(".dropDown1");
+const dropDown2 = document.querySelector(".dropDown2");
+const pokemon1Details = document.querySelector(".pokemon1Details");
+const pokemon2Details = document.querySelector(".pokemon2Details");
+const compareBtn = document.querySelector(".compareBtn");
+const winningPokemon = document.querySelector(".winningPokemon");
+const vs = document.querySelector(".vs");
+const winner = document.querySelector(".winner");
+const searchBox2 = document.querySelector(".searchBox2");
+const searchBox1 = document.querySelector(".searchBox1");
+var firstPokemon = {};
+var secondPokemon = {};
+const mergedDataNames = mergedData.map((item) => item.name.toLowerCase());
+function pokemonDropdown(num) {
+  const searchBox = document.querySelector(`.searchBox${num}`);
+  const searchText = searchBox.value.toLowerCase();
+  const dropDown = document.querySelector(`.dropDown${num}`);
+  dropDown.innerHTML = "";
 
-  selected = mergedData.filter((items) => {
-    return items.name.includes(value);
+  mergedData.forEach((item) => {
+    if (item.name.toLowerCase().startsWith(searchText)) {
+      const listItem = document.createElement("li");
+      listItem.textContent = item.name;
+      listItem.className = "pokemonName";
+      listItem.onclick = function () {
+        dropDown.style.display = "none";
+        displaySelectedPokemon(item.name, num);
+      };
+      dropDown.appendChild(listItem);
+    }
   });
-  console.log(selected);
-  
-  selected.forEach((item)=>{
-   
-    const imgDiv = document.createElement('div')
-    imgDiv.className = "selectedImgDiv col-12 d-flex justify-content-center"
-
-    const selectedpokemonImg = document.createElement('img')
-    selectedpokemonImg.className = "selectedImg"
-    selectedpokemonImg.src = item.ThumbnailImage;
-    imgDiv.append(selectedpokemonImg)
-
-    const nameDiv = document.createElement('div')
-    nameDiv.className = "nameDiv col-12 d-flex justify-content-center"
-    nameDiv.innerHTML = item.name
-
-    const heightWeigth = document.createElement("div");
-    heightWeigth.className = "heightWeigthCol col-12 d-flex";
-
-    const pokemonHeight = document.createElement("div");
-    pokemonHeight.className = "pokeHeight col-6";
-    pokemonHeight.innerHTML = "H : " + item.height + "m";
-
-    const pokemonWeight = document.createElement("div");
-    pokemonWeight.className = "pokeWeigth col-6";
-    pokemonWeight.innerHTML = "W : " + item.weight + "kg";
-    heightWeigth.append(pokemonHeight, pokemonWeight);
-
-    const pokemonType = document.createElement("div");
-    pokemonType.className =
-      "typeOfPokemon col-12 d-flex justify-content-start";
-    const pokeType = document.createElement("div");
-    pokeType.className = "pokeType d-flex";
-    type = document.createElement("div")
-    type.className = "type my-1"
-    type.innerHTML = "Type: "
-    item.type.forEach((types) => {
-      const eachType = document.createElement("div");
-      eachType.className = "eachTypeeach m-1";
-      // styleForType(eachType, types);
-      eachType.innerText = types;
-      pokeType.append(eachType);
-    });
-    pokemonType.append(type,pokeType);
-
-    const pokemonweakness = document.createElement("div");
-    pokemonweakness.className =
-      "weekness col-12 d-flex justify-content-start";
-    const pokeWeakness = document.createElement("div");
-    pokeWeakness.className = "pokeWeekness d-flex";
-    const weak = document.createElement("div")
-    weak.className = "weak my-1"
-    weak.innerHTML = "Weekness: "
-    item.weakness.forEach((weak) => {
-      const eachWeak = document.createElement("div");
-      eachWeak.className = "eachWeak m-1";
-      // styleForType(eachType, types);
-      eachWeak.innerText = weak.toLowerCase();
-      pokeWeakness.append(eachWeak);
-    });
-    pokemonweakness.append(weak,pokeWeakness);
-    wholeDetails.append(imgDiv,nameDiv,heightWeigth,pokemonType,pokemonweakness)
-
-  })
-if (num == 1){
-  pokemon1Details.append(wholeDetails)
+  dropDown.style.display = "block";
 }
-else{
-  pokemon2Details.append(wholeDetails)
+function closeDropdowns() {
+  const dropDowns = document.querySelectorAll(".dropDown1, .dropDown2");
+  dropDowns.forEach((dropDown) => {
+    dropDown.style.display = "none";
+  });
 }
-if (pokemon1Details.innerHTML.trim() != '' && pokemon2Details.innerHTML.trim() != '' )
-{
-  compareBtn.style.display = "block"
-  vs.style.display = "block"
+
+document.body.addEventListener("click", function (event) {
+  const isDropDownClick = event.target.classList.contains("pokemonName");
+  if (!isDropDownClick) {
+    closeDropdowns();
+  }
+});
+function displaySelectedPokemon(value, num) {
+  const selected = mergedData.find((item) => item.name === value);
+  selectedPokemon(selected, num);
+  const detailsElement = document.querySelector(`.pokemon${num}Details`);
+  detailsElement.innerHTML = `
+    <div class="wholeDetails">
+      <div class="selectedImgDiv col-12 d-flex justify-content-center">
+        <img class="selectedImg" src="${selected.ThumbnailImage}">
+      </div>
+      <div class="nameDiv col-12 d-flex justify-content-center">${
+        selected.name
+      }</div>
+      <div class="heightWeigthCol col-12 d-flex">
+        <div class="pokeHeight col-6">H : ${selected.height}m</div>
+        <div class="pokeWeigth col-6">W : ${selected.weight}kg</div>
+      </div>
+      <div class="typeOfPokemon col-12 d-flex justify-content-start pokemonTypeCompare">
+        <div class="type my-1">Type: ${selected.type.join(", ")}</div>
+      </div>
+      <div class="weekness col-12 d-flex justify-content-start">
+        <div class="weak my-1">Weakness: ${selected.weakness
+          .join(", ")
+          .toLowerCase()}</div>
+      </div>
+    </div>`;
+  detailsElement.style.display = "block";
+  if (
+    pokemon1Details.innerHTML.trim() != "" &&
+    pokemon2Details.innerHTML.trim() != ""
+  ) {
+    compareBtn.style.display = "block";
+    vs.style.display = "block";
+  }
 }
+function compare() {
+  winningPokemon.style.display = "block";
+  winner.style.display = "block";
+  compareBtn.style.display = "none";
+  vs.classList.add("rotate");
+  setTimeout(calculate, 2000);
 }
-function compare(){
-  winningPokemon.style.display = "block"
-  compareBtn.style.display = "none"
+function selectedPokemon(pokemon, num) {
+  if (num == 1) {
+    firstPokemon = pokemon;
+    console.log(firstPokemon.name);
+    searchBox1.value = firstPokemon.name;
+  } else {
+    secondPokemon = pokemon;
+    searchBox2.value = secondPokemon.name;
+  }
+}
+function calculate() {
+  vs.classList.remove("rotate");
+  console.log(secondPokemon);
+  const first = firstPokemon.type.filter((type) =>
+    secondPokemon.weakness.some(
+      (weakness) => weakness.toLowerCase() === type.toLowerCase()
+    )
+  );
+
+  const second = secondPokemon.type.filter((type) =>
+    firstPokemon.weakness.some(
+      (weakness) => weakness.toLowerCase() === type.toLowerCase()
+    )
+  );
+
+  if (first.length > second.length) {
+    winner.innerHTML = firstPokemon.name;
+    console.log();
+  } else if (first.length < second.length) {
+    winner.innerHTML = secondPokemon.name;
+  } else if (
+    first.length == secondPokemon.length ||
+    (first == "" && second == "")
+  ) {
+    firstAvg = (firstPokemon.height + firstPokemon.weight) / 2;
+    secondAvg = (secondPokemon.height + secondPokemon.weight) / 2;
+    if (firstAvg > secondAvg) {
+      winner.innerHTML = firstPokemon.name;
+    } else if (firstAvg < secondAvg) {
+      winner.innerHTML = secondPokemon.name;
+    } else {
+      winner.innerHTML = "DRAW";
+    }
+  }
 }
