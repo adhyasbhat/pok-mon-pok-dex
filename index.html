@@ -41,7 +41,7 @@
               type="text"
               id="abilitySearch"
               class="ability-search"
-              placeholder="Search..."
+              placeholder="Search for ability"
               oninput="filterAbilities()"
             />
             <div class="selected-option p-1"></div>
@@ -128,7 +128,7 @@
       />
       <img class="logo" src="img/logo.svg" alt="" srcset="" />
     </nav>
-    <div class="row m-1 mt-3">
+    <div class="row m-3 mt-3">
       <div class="col-12 d-flex basicFilter">
         <div class="searchDiv col-3 text-center">
           <input
@@ -136,10 +136,10 @@
             type="text"
             name=""
             id="searchValue"
-            placeholder="Search your favourate pokemon/number"
+            placeholder="Search your favourite pokemon/number"
           />
         </div>
-        <div class="dropDown col-3">
+        <div class="dropDown col-3 d-flex">
           <select
             class="form-select form-select-sm filter"
             aria-label=".form-select-sm example"
@@ -153,13 +153,17 @@
             <option value="height">Height</option>
             <option value="weigth">Weight</option>
           </select>
+          <img src="./img/settings.png" alt="" srcset="" class="filterImg mt-2 mx-1">
         </div>
-        <div class="compare col-3 text-center">
+        <div class="clearFilter col-2 text-end " onclick="clearAdvanceFilter()"> Clear All Filter</div>
+        <img src="./img/clear-filter.png" alt="" class="clearFilterImg mt-2 mx-1">
+        <div class="compare col-2 text-center">
           <a href="compare.html">Compare</a
           ><img class="compareImg" src="./img/ball.png" alt="" />
         </div>
-        <div class="refresh col-3 text-end" onclick="SurpriseMe()">
-          Surprise Me <img class="refreshImg" src="/img/refresh.png" alt="" />
+        <div class="refresh col-2 text-end" onclick="SurpriseMe()">
+          Surprise Me
+           <img class="refreshImg" src="./img/refresh.png" alt="" />
         </div>
       </div>
     </div>

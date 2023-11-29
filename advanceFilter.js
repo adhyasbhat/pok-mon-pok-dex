@@ -6,6 +6,7 @@ const customDropdown = document.querySelector(".custom-dropdown");
 const labelTitle = document.querySelector(".labelTitle");
 const heightFilter = document.querySelectorAll(".heightFilter");
 const weightFilter = document.querySelectorAll(".weightFilter");
+const searchInput = document.getElementById("abilitySearch");
 let typeWeekness = {};
 var selectedTypes = []
 var selectedWeaknesses =[]
@@ -36,6 +37,7 @@ function sortByAbilities(valueSelected) {
   sub = 0;
   console.log("ability",ability)
 }
+
 
 function listOfAbilities() {
   uniqueAbility = new Set();
@@ -83,7 +85,7 @@ customDropdown.addEventListener("blur", function () {
   abilityOptions.style.display = "none";
 });
 function filterAbilities() {
-  const searchInput = document.getElementById("abilitySearch");
+  
   const filter = searchInput.value.toLowerCase();
   const options = document.querySelectorAll(".option");
 
@@ -314,8 +316,20 @@ function arraysEqual(arr1, arr2) {
   if (arr1.length !== arr2.length) return false;
   return arr1.every((value, index) => value === arr2[index]);
 }
-
-
-
+function clearAdvanceFilter()
+{
+  searchInput.value = ""
+  Array.from(checkboxes).forEach((checkbox) => {
+    checkbox.checked = false
+  })
+  document.querySelector('.maxHeight').style.backgroundColor = '';
+  document.querySelector('.minWeight').style.backgroundColor = '';
+  document.querySelector('.maxWeight').style.backgroundColor = '';
+  document.querySelector('.minWeight').style.backgroundColor = '';
+  combinedFilter = ""
+  searchbar.value = "";
+  filterValue.value = "default";
+  displaySearchedPokemon(searchbar.value,combinedFilter)
+}
 
 

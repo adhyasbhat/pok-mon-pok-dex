@@ -39,10 +39,3 @@
   transition: transform 0.9s ease;
   transform: rotateY(-1080deg);
 }
-/* .pokemonName{
-  font-size: 0.75em;
-}
-.listOfNames{
-  height: 10em;
-  overflow: scroll;
-} */

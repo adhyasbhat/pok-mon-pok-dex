@@ -5,6 +5,7 @@ body {
   background-image: url(./img/background\ copy.png) !important;
   background-size: cover;
   background: white;
+  overflow-x: hidden;
 }
 .logo {
   width: 11em;
@@ -24,13 +25,13 @@ body {
   display: grid;
 }
 .filter,
-.ability-search {
+.ability-search,.clearFilter {
   cursor: pointer;
 }
 .searchbar::placeholder,
 .filter,
 .compare,
-.refresh {
+.refresh,.clearFilter {
   font-size: 1.3em;
 }
 .searchbar::placeholder,
@@ -42,7 +43,7 @@ body {
 }
 .filterImg,
 .compareImg,
-.refreshImg {
+.refreshImg, .clearFilterImg {
   width: 1.2em;
   height: 1.2em;
 }
