@@ -1,0 +1,78 @@
+body {
+  background-image: url(../img/background\ copy.png) !important;
+  /* background-color: #ffcb05; */
+  background-size: cover;
+}
+.logbtn,
+.signbtn {
+  background-color: #ffcb05;
+  color: rgb(0, 0, 0);
+  border-radius: 1em;
+  border: none;
+  width: 7em;
+  height: 2.5em;
+}
+
+.wrapper {
+  height: 100vh;
+}
+.login {
+  width: 25em;
+  height: 30em;
+  background: #ebf9ff;
+  backdrop-filter: blur(10px);
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 40px;
+  box-shadow: 0 8px 32px 0 #bac0cb;
+  display: grid;
+}
+.mainheading {
+  color: black;
+  height: 0.5em;
+  font-weight: 200;
+}
+.heading {
+  color: #ffcb05;
+  height: 1em;
+}
+.heading h2 {
+  position: absolute;
+  top: 2em;
+}
+form {
+  display: grid;
+}
+.form {
+  position: relative;
+  height: 3em;
+}
+
+.form .loginLabel,
+.form .signupLabel {
+  position: absolute !important;
+  top: 10px;
+  left: 28%;
+  cursor: text !important;
+  text-transform: capitalize;
+  font-size: 18px;
+  transition: top 0.5s;
+  color: black;
+}
+.create {
+  color: rgb(0, 0, 0);
+}
+.create a {
+  color: #306cb4 !important;
+  cursor: pointer;
+}
+.textbox {
+  height: 2.5em;
+  width: 19em;
+  border: 2px solid;
+  border-image: linear-gradient(to right, #306cb4, #ffcb05);
+  border-image-slice: 1;
+  outline: none;
+  align-items: center;
+  display: grid;
+}

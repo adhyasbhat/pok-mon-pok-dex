@@ -12,7 +12,7 @@
   z-index: 1;
   top: 0;
   left: 0;
-  background-image: url(./img//sidenav-background.png);
+  background-image: url(../img//sidenav-background.png);
   border: 3px solid white;
   box-shadow: 0 0 10px 2px #306cb4;
   overflow-x: hidden;

@@ -45,8 +45,6 @@ function listOfAbilities() {
     item.abilities.forEach((items) => uniqueAbility.add(items))
   );
   abilityListArray = Array.from(uniqueAbility);
-  
-
   const defaultOption = document.createElement("li");
   defaultOption.textContent = "Select all";
   defaultOption.className = "option";
@@ -81,14 +79,12 @@ document.addEventListener("click", function (e) {
   }
 });
 
-customDropdown.addEventListener("blur", function () {
-  abilityOptions.style.display = "none";
-});
+// customDropdown.addEventListener("blur", function () {
+//   abilityOptions.style.display = "none";
+// });
 function filterAbilities() {
-  
   const filter = searchInput.value.toLowerCase();
   const options = document.querySelectorAll(".option");
-
   options.forEach((option) => {
     const text = option.textContent.toLowerCase();
     if (text.indexOf(filter) > -1) {
@@ -288,6 +284,7 @@ function combinedAdvanceFilter() {
     if (heigthWeightAdvanceFilter.length !== 0 && !arraysEqual(heigthWeightAdvanceFilter, advanceFilter)) {
       result = result && heigthWeightAdvanceFilter.includes(item);
     }
+    
     return result;
   });
   console.log(combinedFilter);
@@ -318,18 +315,23 @@ function arraysEqual(arr1, arr2) {
 }
 function clearAdvanceFilter()
 {
-  searchInput.value = ""
-  Array.from(checkboxes).forEach((checkbox) => {
-    checkbox.checked = false
-  })
-  document.querySelector('.maxHeight').style.backgroundColor = '';
-  document.querySelector('.minWeight').style.backgroundColor = '';
-  document.querySelector('.maxWeight').style.backgroundColor = '';
-  document.querySelector('.minWeight').style.backgroundColor = '';
-  combinedFilter = ""
-  searchbar.value = "";
-  filterValue.value = "default";
-  displaySearchedPokemon(searchbar.value,combinedFilter)
+  location.reload();
+  // searchInput.value = ""
+  // Array.from(checkboxes).forEach((checkbox) => {
+  //   checkbox.checked = false
+  // })
+  // document.querySelector('.maxHeight').style.backgroundColor = '';
+  // document.querySelector('.minWeight').style.backgroundColor = '';
+  // document.querySelector('.maxWeight').style.backgroundColor = '';
+  // document.querySelector('.minWeight').style.backgroundColor = '';
+  // combinedFilter = ""
+  // searchbar.value = "";
+  // filterValue.value = "default";
+  // searchbar.disabled = false
+  // filterValue.disabled = false
+  // searchbar.classList.remove("disableField")
+  // filterValue.classList.remove("disableField")
+  // displaySearchedPokemon(searchbar.value,combinedFilter)
 }
 
 

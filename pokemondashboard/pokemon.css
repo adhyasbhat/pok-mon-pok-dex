@@ -2,7 +2,7 @@
   font-family: kelly slab;
 }
 body {
-  background-image: url(./img/background\ copy.png) !important;
+  background-image: url(../img/background\ copy.png) !important;
   background-size: cover;
   background: white;
   overflow-x: hidden;
@@ -13,8 +13,9 @@ body {
 .searchbar,
 .filter,
 .searchBox1,
-.searchBox,
-.ability-search {
+.searchBox2,
+.ability-search,
+.textbox {
   width: 19em;
   height: 2em;
   border: 2px solid;
@@ -47,6 +48,18 @@ body {
   width: 1.2em;
   height: 1.2em;
 }
+.userIcon{
+  width: 2em;
+  height: 2em;
+ 
+}
+.userID{
+  color: #306cb4;
+  font-size: 1.5em;
+}
+.dropdown-toggle::after {
+  display: none;
+}
 .compare a {
   color: inherit;
   text-decoration: none;
@@ -68,7 +81,6 @@ body {
   border: 2px solid gray;
   border-radius: 1em;
   width: 20%;
-  cursor: pointer;
   height: 19em;
   display: grid;
   align-items: center;
@@ -137,7 +149,7 @@ body {
 .more,
 .collapseBtn,
 .compareBtn,
-.search {
+.search{
   background: #ffcb05;
   border: 2px solid #306cb4;
   color: #306cb4;
@@ -183,6 +195,10 @@ label,
 }
 .disableField {
   cursor: no-drop;
+}
+.likeBtn{
+  width: 2.5em;
+  height: 2.5em;
 }
 @media (max-width: 1016px) {
   .pokemonCard {

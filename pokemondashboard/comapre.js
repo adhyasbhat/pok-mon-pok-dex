@@ -1,3 +1,10 @@
+console.log(localStorage.getItem('authenticate'))
+const authentication = localStorage.getItem("authenticate")
+if(authentication != "allowed")
+{
+  window.location.href = '/'
+}
+
 const dropDown1 = document.querySelector(".dropDown1");
 const dropDown2 = document.querySelector(".dropDown2");
 const pokemon1Details = document.querySelector(".pokemon1Details");

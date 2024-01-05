@@ -24,12 +24,12 @@
   </head>
   <body>
     <div id="mySidenav" class="sidenav">
-      <a
+      <!-- <a
         href="javascript:void(0)"
         class="closebtn"
         onclick="closeAdvanveFilter()"
         >&times;</a
-      >
+      > -->
       <div class="row title d-flex justify-content-center my-1 mb-2">
         Advance Search
       </div>
@@ -79,14 +79,14 @@
             type="weight"
             onclick="filterByWeight(1)"
           >
-            <img src="./img/heavy.png" alt="" />
+            <img src="../img/heavy.png" alt="" />
           </div>
           <div
             class="col-3 d-flex justify-content-center weightFilter maxWeight border p-3 mx-2"
             type="weight"
             onclick="filterByWeight(2)"
           >
-            <img src="./img/heavy.png" alt="" />
+            <img src="../img/heavy.png" alt="" />
           </div>
         </div>
         <div class="col-5 d-flex justify-content-center m-2">
@@ -96,7 +96,7 @@
             type="height"
             onclick="filterByheight(1)"
           >
-            <img src="./img/shrink.png" alt="" srcset="" />
+            <img src="../img/shrink.png" alt="" srcset="" />
           </div>
           <div
             class="col-3 d-flex justify-content-center heightFilter maxHeight border p-3 mx-2"
@@ -104,7 +104,7 @@
             onclick="filterByheight(2)"
           >
             <img
-              src="./img/expanding-two-opposite-arrows-diagonal-symbol-of-interface.png"
+              src="../img/expanding-two-opposite-arrows-diagonal-symbol-of-interface.png"
               alt=""
               srcset=""
               data-value="1479"
@@ -118,15 +118,31 @@
       </div>
     </div>
     <nav class="mx-3 m-1 d-flex justify-content-between">
+      <a href=""><img class="logo" src="img/logo.svg" alt="" srcset="" /></a
+      >
+       <!--<a class="d-flex align-items-center userName" href=""><span class="userID"></span><img class = "userIcon" src="img/account.png"></a> -->
+      <div class="dropdown">
+        <button class="btn dropdown-toggle userID" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown">
+          
+        </button>
+        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+          <li><a class="dropdown-item" href="./profile.html">My Profile</a></li>
+          <li onclick="logout()">Logout</li>
+        </ul>
+      </div>
+      
+    </nav>
+    <nav class="mx-3 m-1 d-flex justify-content-between">
       <img
         onclick="openAdvanceFilter()"
-        src="./img/pikachu.png"
+        src="../img/pikachu.png"
         alt=""
         srcset=""
         class="advanceFilterImg"
         title="Advance Filter"
       />
-      <img class="logo" src="img/logo.svg" alt="" srcset="" />
+     
+      
     </nav>
     <div class="row m-3 mt-3">
       <div class="col-12 d-flex basicFilter">
@@ -153,17 +169,17 @@
             <option value="height">Height</option>
             <option value="weigth">Weight</option>
           </select>
-          <img src="./img/settings.png" alt="" srcset="" class="filterImg mt-2 mx-1">
+          <img src="../img/settings.png" alt="" srcset="" class="filterImg mt-2 mx-1">
         </div>
         <div class="clearFilter col-2 text-end " onclick="clearAdvanceFilter()"> Clear All Filter</div>
-        <img src="./img/clear-filter.png" alt="" class="clearFilterImg mt-2 mx-1">
-        <div class="compare col-2 text-center">
-          <a href="compare.html">Compare</a
-          ><img class="compareImg" src="./img/ball.png" alt="" />
+        <img src="../img/clear-filter.png" alt="" class="clearFilterImg mt-2 mx-1">
+        <div class="compare col-2 text-center" onclick="redirectCompare()">
+          Compare
+          <img class="compareImg" src="../img/ball.png" alt="" />
         </div>
         <div class="refresh col-2 text-end" onclick="SurpriseMe()">
           Surprise Me
-           <img class="refreshImg" src="./img/refresh.png" alt="" />
+           <img class="refreshImg" src="../img/refresh.png" alt="" />
         </div>
       </div>
     </div>
@@ -171,7 +187,7 @@
     <div class="noResultFound d-flex justify-content-center p-5">
       <img
         class="noResult"
-        src="./img/no-results.png"
+        src="../img/no-results.png"
         alt=""
         style="display: none"
       />
@@ -223,4 +239,5 @@
   <script src="piechart.js"></script>
   <script src="pokemon.js"></script>
   <script src="advanceFilter.js"></script>
+  <script src="intermediateFile.js"></script>
 </html>

@@ -1,0 +1,79 @@
+.form-input input {
+    display:none;
+  }
+  .form-input label {
+    display:block;
+    width:45%;
+    height:45px;
+    margin-left: 25%;
+    line-height:50px;
+    text-align:center;
+    background:#1172c2;
+    color:#fff;
+    font-size:15px;
+    font-family:”Open Sans”,sans-serif;
+    text-transform:Uppercase;
+    font-weight:600;
+    border-radius:5px;
+    cursor:pointer;
+  }
+  .form-input img {
+    width:100%;
+    display:none;
+    margin-bottom:30px;
+  }
+  .pokemonCard {
+    border: 2px solid gray;
+    border-radius: 1em;
+    width: 30%;
+    height: 19em;
+    display: grid;
+    align-items: center;
+  }
+  #username{
+    text-transform: uppercase;
+    color: #1172c2;
+    font-size: 1.5em;
+  }
+  .profileSection{
+    background-color: rgb(255, 255, 255);
+    border-radius: 1em;
+  }
+.preview{
+    height: 10em;
+    width: 10em;
+    border: 2px solid #1172c2;
+    border-radius: 100%;
+}
+.cam{
+    position: relative;
+}
+.camera{
+    height: 2em;
+    width: 2em;
+    position: absolute;
+    top: -1.5em;
+    cursor: pointer;
+}
+.myFriends ,.findFriends, .chat{
+    color: #ffcb05;
+}
+.remove{
+    width: 2em;
+}
+  @media (max-width: 1016px) {
+    .pokemonCard {
+      width: 40% !important;
+    }
+  }
+  @media (max-width: 600px) {
+    .pokemonCard {
+      width: 50% !important;
+    }
+  }
+  @media (max-width: 420px) {
+    .pokemonCard {
+      width: 70% !important;
+    }
+  
+  }
